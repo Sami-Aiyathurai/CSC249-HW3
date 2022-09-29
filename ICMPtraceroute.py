@@ -26,7 +26,7 @@ def build_packet():
     #---------------#
     # Fill in start #
     #---------------#
-    myID = os.getpid() & 0xFFFF # Get ID
+    ID = os.getpid() & 0xFFFF # Get ID
     myChecksum = 0 # dummy checksum
     
     header = struct.pack("bbHHh", ICMP_ECHO_REQUEST, 0, myChecksum, ID, 1) #set up header
@@ -96,7 +96,7 @@ def get_route(hostname):
                 #---------------#
 
                     #TODO: Fetch the icmp type from the IP packet
-              types = recvPacket[20] #gets icmp type from first byte of icmp header
+                types = recvPacket[20] #gets icmp type from first byte of icmp header
                 #-------------#
                 # Fill in end #
                 #-------------#
@@ -119,8 +119,7 @@ def get_route(hostname):
 
                 else:
                     print("error")
-
-                break
+                    break
 
             finally:
                 mySocket.close()
