@@ -62,9 +62,15 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
 
         #---------------#
         # Fill in start #
+        # Found answer https://www.programcreek.com/python/?CodeExample=receive+one+ping #
         #---------------#
 
-            # TODO: Fetch the ICMP header from the IP packet
+        icmpHeader = recPacket[20:28]# set icmp header to bits after bit 160
+        type, code, checksum, packetID, sequence = struct.unpack("bbHHh", icmpHeader) #unpacket data 
+        if packetID == ID:
+            bytesinDouble = struct.calcsize("d")
+            timeSent = struct.unpack("d", recPacket[28:28 + bytesInDouble])[0] #determine sent time
+            return timeRecieved - timeSent #time between when sent and when recevied
 
         #-------------#
         # Fill in end #
